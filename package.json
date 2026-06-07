@@ -1,0 +1,62 @@
+{
+  "name": "@jayofemi/shikamaru",
+  "version": "1.0.0",
+  "description": "Provably correct day-count and accrued-interest calculations, as a TypeScript library and an MCP server.",
+  "license": "MIT",
+  "author": "Jay Ofemi",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "shikamaru-mcp": "./dist/server.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JayOfemi/shikamaru.git"
+  },
+  "homepage": "https://github.com/JayOfemi/shikamaru#readme",
+  "bugs": {
+    "url": "https://github.com/JayOfemi/shikamaru/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "mcp": "node dist/server.js",
+    "vectors": "python scripts/generate-vectors.py",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "keywords": [
+    "day-count",
+    "accrued-interest",
+    "isda",
+    "finance",
+    "deterministic",
+    "mcp",
+    "model-context-protocol"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  }
+}

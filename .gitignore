@@ -1,0 +1,46 @@
+# Runtime is undecided at bootstrap; this ignore covers both Node and Python
+# plus common compute artifacts. Trim to the chosen runtime once locked.
+
+# Node
+node_modules/
+dist/
+*.log
+npm-debug.log*
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+
+# Compute outputs and large local artifacts (never commit)
+out/
+output/
+runs/
+*.gguf
+*.safetensors
+*.bin
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local pre-publish gate config (not shipped)
+.publicrelease.json

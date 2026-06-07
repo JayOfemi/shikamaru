@@ -1,0 +1,3 @@
+# Dev-only dependency for generating the QuantLib differential battery.
+# Not shipped with the package. See scripts/generate-vectors.py.
+QuantLib
