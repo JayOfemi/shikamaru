@@ -1,5 +1,5 @@
 {
-  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.json",
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.JayOfemi/shikamaru",
   "description": "Provably correct day-count and accrued-interest calculations (ISDA 2006 conventions), verified against QuantLib.",
   "version": "1.0.1",
