@@ -1,0 +1,20 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.json",
+  "name": "io.github.JayOfemi/shikamaru",
+  "description": "Provably correct day-count and accrued-interest calculations (ISDA 2006 conventions), verified against QuantLib.",
+  "version": "1.0.1",
+  "repository": {
+    "url": "https://github.com/JayOfemi/shikamaru",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@jayofemi/shikamaru",
+      "version": "1.0.1",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}
