@@ -39,7 +39,7 @@ accruedInterest({
 
 Dates are strict ISO `YYYY-MM-DD`. Rate is an annual decimal (`0.05` = 5%).
 
-## MCP server
+## MCP server [![shikamaru MCP server](https://glama.ai/mcp/servers/JayOfemi/shikamaru/badges/score.svg)](https://glama.ai/mcp/servers/JayOfemi/shikamaru)
 
 From source (local dev):
 
@@ -80,6 +80,8 @@ npm run vectors
 ```
 
 This writes `test/vectors/quantlib.json` (commit it). `npm test` then checks shikamaru against every QuantLib value. CI regenerates the battery from QuantLib (setup-python + pip) and runs it on every push, so drift is caught. The proof is the product.
+
+[![shikamaru MCP server](https://glama.ai/mcp/servers/JayOfemi/shikamaru/badges/card.svg)](https://glama.ai/mcp/servers/JayOfemi/shikamaru)
 
 ## Develop
 
