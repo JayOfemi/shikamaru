@@ -64,6 +64,7 @@ describe("QuantLib differential battery", () => {
 	afterAll(() => {
 		if (summary.length === 0) return;
 		const total = summary.reduce((n, s) => n + s.count, 0);
+		const clean = summary.every((s) => s.maxError <= TOLERANCE);
 		const reference = quantlibVersion ? `QuantLib ${quantlibVersion}` : "QuantLib";
 		const bar = "=".repeat(62);
 		const rows = summary
@@ -80,7 +81,9 @@ describe("QuantLib differential battery", () => {
 			bar,
 			...rows,
 			bar,
-			`  ${total} / ${total} cases match ${reference} within ${TOLERANCE.toExponential(0)}.  Zero drift.`,
+			clean
+				? `  ${total} / ${total} cases match ${reference} within ${TOLERANCE.toExponential(0)}.  Zero drift.`
+				: `  DRIFT DETECTED against ${reference}; see the FAIL rows above.`,
 			bar,
 			"",
 		];
