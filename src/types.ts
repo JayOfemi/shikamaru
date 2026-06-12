@@ -8,6 +8,7 @@ export const DAY_COUNT_CONVENTIONS = [
 	"ACT/360",
 	"ACT/365F",
 	"ACT/ACT ISDA",
+	"ACT/ACT ICMA",
 ] as const;
 
 export type DayCountConvention = (typeof DAY_COUNT_CONVENTIONS)[number];

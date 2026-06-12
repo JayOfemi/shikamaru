@@ -2,19 +2,24 @@
 
 [![CI](https://github.com/JayOfemi/shikamaru/actions/workflows/ci.yml/badge.svg)](https://github.com/JayOfemi/shikamaru/actions/workflows/ci.yml)
 
-Provably correct day-count and accrued-interest calculations. A small, dependency-light TypeScript library and an MCP server, so an AI agent can get the exact number instead of guessing.
+Provably correct day-count, holiday-calendar, business-day, and payment-schedule calculations. A small, dependency-light TypeScript library and an MCP server, so an AI agent can get the exact date or number instead of guessing.
 
 ## Why
 
-LLMs are unreliable at date and money math: they pick the wrong day-count convention and miscompute accrued interest. shikamaru does it deterministically and proves it against published reference values. Do not let a model guess your interest accrual.
+LLMs are unreliable at date and money math: they pick the wrong day-count convention, forget market holidays, and miscompute accrued interest. shikamaru does it deterministically and proves it against published reference values. Do not let a model guess your interest accrual or your settlement date.
 
-## What it does (v1)
+## What it does
 
-- Day-count fraction between two dates under six market conventions: 30/360, 30E/360, 30E/360 ISDA, ACT/360, ACT/365F, ACT/ACT ISDA.
+- Day-count fraction between two dates under seven market conventions: 30/360, 30E/360, 30E/360 ISDA, ACT/360, ACT/365F, ACT/ACT ISDA, ACT/ACT ICMA (with reference periods and stub decomposition).
 - Simple accrued interest: notional x rate x day-count fraction.
-- Exposed both as a library and as an MCP server (tools: `day_count_fraction`, `accrued_interest`, `list_conventions`).
+- Holiday calendars as rules in code, no data feed: `us-federal`, `nyse`, `sifma-us`, `target`, `uk`.
+- Business-day math: is-business-day, next/previous, ISDA adjustment conventions (following, modified-following, preceding, modified-preceding), T+N settlement.
+- Payment schedules: monthly to annual, backward or forward roll, short or long stubs, end-of-month rule, per-period unadjusted and adjusted dates.
+- All of it exposed as a library and as an MCP server.
 
-Holiday calendars, business-day adjustment, schedules, and ACT/ACT ICMA arrive in v2.
+### Calendar maintenance contract
+
+Calendars are published rules plus a short pinned table of historical one-off closures, current as of this version. Rules generate correct dates arbitrarily far forward; one-off closures (a mourning day, a proclaimed extra holiday) are added when announced and ship in a patch release. A scheduled CI run re-checks every calendar against the latest QuantLib weekly, so drift is detected, not discovered.
 
 ## Install
 
@@ -25,7 +30,10 @@ npm install @jayofemi/shikamaru
 ## Library usage
 
 ```ts
-import { dayCountFraction, accruedInterest } from "@jayofemi/shikamaru";
+import {
+	accruedInterest, addBusinessDays, adjustDate, dayCountFraction,
+	generateSchedule, isBusinessDay,
+} from "@jayofemi/shikamaru";
 
 dayCountFraction("2003-11-01", "2004-05-01", "ACT/ACT ISDA"); // 0.4977...
 accruedInterest({
@@ -35,6 +43,17 @@ accruedInterest({
 	end: "2024-04-01",
 	convention: "ACT/365F",
 });
+
+isBusinessDay("2024-06-19", "nyse"); // false (Juneteenth)
+adjustDate("2024-03-29", "modified-following", "target"); // "2024-03-28" (Good Friday, stays in March)
+addBusinessDays("2024-07-02", 2, "us-federal"); // "2024-07-05" (T+2 over July 4th)
+
+generateSchedule({
+	effective: "2024-01-15",
+	termination: "2026-01-15",
+	frequency: "semiannual",
+	calendar: "target",
+}); // four periods with unadjusted and adjusted dates
 ```
 
 Dates are strict ISO `YYYY-MM-DD`. Rate is an annual decimal (`0.05` = 5%).
@@ -72,16 +91,16 @@ It opens a local UI, connects over stdio, lists the tools, and lets you call the
 
 ## Correctness
 
-Conventions follow the ISDA 2006 definitions. The test suite checks published reference vectors (ISDA worked examples, the OpenGamma conventions guide), property checks, and a differential battery against QuantLib, the de-facto reference.
+Conventions follow the ISDA 2006 definitions; calendars follow their published sources (OPM, NYSE rules, SIFMA recommendations, ECB TARGET rules, gov.uk proclamations). The test suite checks published reference vectors (ISDA worked examples, official holiday lists, the OpenGamma conventions guide), property checks, and differential batteries against QuantLib, the de-facto reference: day-count fractions, full per-calendar holiday lists across decades, business-day adjustment and advancing, schedules compared date by date, and ACT/ACT ICMA fractions including stubs.
 
-To (re)generate the QuantLib battery (needs Python + pip):
+To (re)generate the QuantLib batteries (needs Python + pip):
 
 ```
 pip install QuantLib
 npm run vectors
 ```
 
-This writes `test/vectors/quantlib.json` (commit it). `npm test` then checks shikamaru against every QuantLib value. CI regenerates the battery from QuantLib (setup-python + pip) and runs it on every push, so drift is caught. The proof is the product.
+This writes `test/vectors/quantlib.json` and `test/vectors/quantlib-calendar.json` (commit both). `npm test` then checks shikamaru against every QuantLib value. CI regenerates the batteries from the latest QuantLib on every push AND on a weekly schedule (the drift watchdog), so a real-world calendar change surfaces as a red run even when the repo is quiet. The proof is the product.
 
 ## Develop
 

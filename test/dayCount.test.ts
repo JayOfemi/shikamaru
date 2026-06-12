@@ -67,7 +67,15 @@ describe("30/360 family", () => {
 describe("properties", () => {
 	it("a zero-length period is zero for every convention", () => {
 		for (const convention of DAY_COUNT_CONVENTIONS) {
-			expect(dayCountFraction("2024-03-15", "2024-03-15", convention)).toBe(0);
+			const options = convention === "ACT/ACT ICMA" ? { frequency: 2 } : undefined;
+			expect(dayCountFraction("2024-03-15", "2024-03-15", convention, options)).toBe(0);
+		}
+	});
+
+	it("rejects a reversed period for every convention", () => {
+		for (const convention of DAY_COUNT_CONVENTIONS) {
+			const options = convention === "ACT/ACT ICMA" ? { frequency: 2 } : undefined;
+			expect(() => dayCountFraction("2020-02-29", "2020-01-31", convention, options)).toThrow();
 		}
 	});
 

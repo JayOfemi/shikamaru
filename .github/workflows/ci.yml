@@ -5,6 +5,12 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  # Drift watchdog: regenerate the differential vectors against the LATEST
+  # QuantLib on a schedule, so a real-world calendar change surfaces as a red
+  # run even when the repo is quiet. pip installs QuantLib unpinned on purpose.
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
 
 jobs:
   build-and-test:
