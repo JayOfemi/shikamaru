@@ -1,8 +1,8 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.JayOfemi/shikamaru",
-  "description": "Provably correct ISDA day-count, holiday-calendar, business-day, and payment-schedule calculations, verified against QuantLib.",
-  "version": "1.1.0",
+  "description": "Provably correct day-count, calendar, business-day, and schedule math, verified against QuantLib.",
+  "version": "1.1.1",
   "repository": {
     "url": "https://github.com/JayOfemi/shikamaru",
     "source": "github"
@@ -11,7 +11,7 @@
     {
       "registryType": "npm",
       "identifier": "@jayofemi/shikamaru",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "transport": {
         "type": "stdio"
       }

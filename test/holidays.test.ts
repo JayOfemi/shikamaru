@@ -81,8 +81,10 @@ describe("sifma-us", () => {
 		expect(isHoliday("2024-11-11", "sifma-us")).toBe(true);
 	});
 
-	it("observes a Saturday Veterans Day on the Friday", () => {
-		expect(isHoliday("2017-11-10", "sifma-us")).toBe(true);
+	it("does not observe a Saturday Veterans Day on the Friday, unlike us-federal", () => {
+		expect(isHoliday("2017-11-10", "sifma-us")).toBe(false); // SIFMA 2017 archive: no close
+		expect(isHoliday("2017-11-10", "us-federal")).toBe(true);
+		expect(isHoliday("2018-11-12", "sifma-us")).toBe(true); // Sunday Nov 11 rolls to Monday
 	});
 
 	it("closed October 30th 2012 for Sandy but traded the 29th", () => {

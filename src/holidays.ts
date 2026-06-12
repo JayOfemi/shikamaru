@@ -141,7 +141,10 @@ function isSifmaHoliday(date: CivilDate, w: number): boolean {
 	if (isObservedFixed(date, w, 7, 4)) return true; // Independence Day
 	if (isNthMonday(date, w, 9, 1)) return true; // Labor Day
 	if (isNthMonday(date, w, 10, 2)) return true; // Columbus Day
-	if (isObservedFixed(date, w, 11, 11)) return true; // Veterans Day
+	// Veterans Day: Sunday rolls to Monday, but SIFMA does not move a Saturday
+	// November 11th to the Friday (us-federal does; SIFMA archive lists no close).
+	if (month === 11 && day === 11) return w !== SATURDAY && w !== SUNDAY;
+	if (month === 11 && day === 12 && w === MONDAY) return true;
 	if (month === 11 && w === THURSDAY && day === nthWeekdayOfMonth(year, 11, THURSDAY, 4)) return true; // Thanksgiving
 	if (isObservedFixed(date, w, 12, 25)) return true; // Christmas
 	return false;

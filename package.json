@@ -1,6 +1,6 @@
 {
   "name": "@jayofemi/shikamaru",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "mcpName": "io.github.JayOfemi/shikamaru",
   "description": "Provably correct day-count, holiday-calendar, business-day, and payment-schedule calculations, as a TypeScript library and an MCP server.",
   "license": "MIT",

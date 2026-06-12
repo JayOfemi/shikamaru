@@ -23,7 +23,6 @@ real-world calendar changes surface as a red run (the drift watchdog).
 import json
 import os
 import random
-from datetime import date as pydate
 from importlib.metadata import version
 
 import QuantLib as ql
@@ -115,13 +114,9 @@ def known_differences(name, year_min, year_max):
         # QuantLib Settlement gates Juneteenth at 2022 (markets and the Fed stayed open).
         return ["2021-06-18"]
     if name == "sifma-us":
-        # SIFMA-recommended bond-market closes QuantLib GovernmentBond omits: the
-        # September 11 attacks, and Friday observance when Veterans Day is a Saturday.
-        dates = ["2001-09-11", "2001-09-12"]
-        for year in range(year_min, year_max + 1):
-            if pydate(year, 11, 11).weekday() == 5:
-                dates.append(f"{year:04d}-11-10")
-        return sorted(dates)
+        # SIFMA-recommended bond-market closes QuantLib GovernmentBond omits:
+        # the September 11 attacks.
+        return ["2001-09-11", "2001-09-12"]
     return []
 
 
