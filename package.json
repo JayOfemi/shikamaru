@@ -40,16 +40,25 @@
     "prepublishOnly": "npm run build && npm test"
   },
   "keywords": [
-    "day-count",
-    "accrued-interest",
-    "isda",
-    "holiday-calendar",
-    "business-day",
-    "payment-schedule",
-    "finance",
-    "deterministic",
     "mcp",
-    "model-context-protocol"
+    "model-context-protocol",
+    "typescript",
+    "finance",
+    "fintech",
+    "quantitative-finance",
+    "quantlib",
+    "isda",
+    "day-count",
+    "business-days",
+    "holiday-calendar",
+    "accrued-interest",
+    "payment-schedule",
+    "date-math",
+    "deterministic",
+    "claude",
+    "anthropic",
+    "npm",
+    "nodejs"
   ],
   "engines": {
     "node": ">=20"
