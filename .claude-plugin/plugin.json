@@ -1,0 +1,24 @@
+{
+  "name": "shikamaru",
+  "version": "1.1.1",
+  "description": "Provably correct day-count, calendar, business-day, and schedule math, verified against QuantLib.",
+  "author": {
+    "name": "Jay Ofemi"
+  },
+  "homepage": "https://github.com/JayOfemi/shikamaru#readme",
+  "repository": "https://github.com/JayOfemi/shikamaru",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "finance",
+    "day-count",
+    "business-days",
+    "claude-code"
+  ],
+  "mcpServers": {
+    "shikamaru": {
+      "command": "npx",
+      "args": ["-y", "@jayofemi/shikamaru"]
+    }
+  }
+}

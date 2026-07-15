@@ -78,6 +78,13 @@ npx @jayofemi/shikamaru
 
 Point any MCP client (Claude Desktop, an IDE, etc.) at that command over stdio.
 
+Claude Code users can also install it as a plugin, which registers the MCP server automatically:
+
+```
+/plugin marketplace add JayOfemi/shikamaru
+/plugin install shikamaru@shikamaru
+```
+
 ## Verify the MCP server
 
 The standard way to test shikamaru's server is the official MCP Inspector. The unit tests cover the library; the Inspector covers the server layer they do not touch.

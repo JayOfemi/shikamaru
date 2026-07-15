@@ -1,0 +1,17 @@
+{
+  "name": "shikamaru",
+  "owner": {
+    "name": "Jay Ofemi",
+    "url": "https://github.com/JayOfemi"
+  },
+  "metadata": {
+    "description": "Provably correct finance math for AI agents, as an installable Claude Code plugin."
+  },
+  "plugins": [
+    {
+      "name": "shikamaru",
+      "source": "./",
+      "description": "Provably correct day-count, calendar, business-day, and schedule math, verified against QuantLib."
+    }
+  ]
+}
