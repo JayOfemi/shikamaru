@@ -16,6 +16,7 @@ LLMs are unreliable at date and money math: they pick the wrong day-count conven
 - Business-day math: is-business-day, next/previous, ISDA adjustment conventions (following, modified-following, preceding, modified-preceding), T+N settlement.
 - Payment schedules: monthly to annual, backward or forward roll, short or long stubs, end-of-month rule, per-period unadjusted and adjusted dates.
 - All of it exposed as a library and as an MCP server.
+- Every MCP tool is annotated read-only and returns structured output (typed JSON under an output schema) alongside the plain-text result, so an agent client can consume the numbers without parsing text.
 
 ### Calendar maintenance contract
 
@@ -67,10 +68,10 @@ From source (local dev):
 ```
 npm install
 npm run build
-node dist/server.js
+node dist/cli.js
 ```
 
-Once published, an MCP client can launch it directly:
+Or launch the published package directly:
 
 ```
 npx @jayofemi/shikamaru
@@ -87,11 +88,11 @@ Claude Code users can also install it as a plugin, which registers the MCP serve
 
 ## Verify the MCP server
 
-The standard way to test shikamaru's server is the official MCP Inspector. The unit tests cover the library; the Inspector covers the server layer they do not touch.
+The test suite exercises the server end to end in memory, covering tool listing, read-only annotations, structured output against each output schema, and a call to every tool. For an interactive check, use the official MCP Inspector:
 
 ```
 npm run build
-npx @modelcontextprotocol/inspector node dist/server.js
+npx @modelcontextprotocol/inspector node dist/cli.js
 ```
 
 It opens a local UI, connects over stdio, lists the tools, and lets you call them. Sanity check: `day_count_fraction` with start `2003-11-01`, end `2004-05-01`, convention `ACT/ACT ISDA` returns about 0.4977.
