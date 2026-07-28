@@ -15,7 +15,7 @@
     }
   },
   "bin": {
-    "shikamaru-mcp": "./dist/server.js"
+    "shikamaru-mcp": "./dist/cli.js"
   },
   "files": [
     "dist"
@@ -35,7 +35,7 @@
     "build": "tsc",
     "test": "vitest run",
     "test:watch": "vitest",
-    "mcp": "node dist/server.js",
+    "mcp": "node dist/cli.js",
     "vectors": "python scripts/generate-vectors.py",
     "prepublishOnly": "npm run build && npm test"
   },
