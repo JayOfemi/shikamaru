@@ -26,7 +26,7 @@ export const MIN_FORMAT_YEAR = 0;
 export const MAX_FORMAT_YEAR = 9999;
 
 export const SERVER_NAME = "shikamaru";
-export const SERVER_VERSION = "1.1.1";
+export const SERVER_VERSION = "1.2.0";
 
 /** Weekday numbers as returned by weekday(): 0 = Sunday through 6 = Saturday. */
 export const SUNDAY = 0;
